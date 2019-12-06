@@ -64,3 +64,5 @@ typings/
 .idea/workspace.xml
 /dist/
 /package-lock.json
+
+*.js
