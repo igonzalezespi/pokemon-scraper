@@ -15,4 +15,10 @@ export class UtilService {
                 return {html, $: cheerio.load(html)};
             });
     }
+
+    public static parseText(name: string): string {
+        return name
+            .toLowerCase()
+            .replace(/ /g, '');
+    }
 }

@@ -21,10 +21,7 @@ export class PokemonService {
                             let $text = $(this).text();
                             // Se espera de la forma "001 Grookey", tomamos lo que hay
                             //   a la derecha del primer espacio y lo pasamos a minúsculas
-                            let name = $text
-                                .substr($text.indexOf(' ') + 1)
-                                .toLowerCase()
-                                .replace(/ /g, '');
+                            let name = UtilService.parseText($text.substr($text.indexOf(' ') + 1));
 
                             pokes.push(name);
                         }
@@ -75,7 +72,7 @@ export class PokemonService {
         };
         return <Pokemon> {
             // Parsear datos aquí
-            name: r.name.substr(r.name.indexOf(' ') + 1, r.name.length).toLowerCase(),
+            name: UtilService.parseText(r.name.substr(r.name.indexOf(' ') + 1, r.name.length)),
         };
     }
 }
