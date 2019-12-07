@@ -6,7 +6,41 @@ import {UtilService} from "./utilService";
 export class PokemonService {
     public static url = 'https://www.serebii.net/pokedex-swsh/';
     public static selectors = {
-        name: 'h1'
+        name: 'h1',
+        types:'.typeimg',
+        //types.[i].alt;
+        gender:'tr:contains(Gender Ratio)',
+        male://gender.next().find();
+        'tr > td:contains(♂)',
+        //male.next().text().replace('%', '');
+        female://gender.next().find();
+        'tr > td:contains(♀)',
+        //female.next().text().replace('%', '');
+        genderLess://gender.next().find();
+        'td:contains(Genderless)',
+        //genderLess.next().text().replace('%', '');
+        heights:'tr:contains(Height)',
+        heightP://heights.next().find();
+        'td:contains(")',
+        //heightP.text().replace(/\t/gi,"").split("\n")[0].replace('"','');
+        heightM://heights.next().find();
+        'td:contains(")',
+        //heightM.text().replace(/\t/gi,"").split("\n")[1].replace('m','');
+        weights:'main tr:contains(Weight)',
+        weightLbs://weights.next().find();
+        'td:contains(lbs)',
+        //weightLbs.text().replace(/\t/gi,"").split("\n")[0].replace('lbs','');
+        weightKg://weights.next().find();
+        'td:contains(lbs)',
+        //weightKg.text().replace(/\t/gi,"").split("\n")[1].replace('kg','');
+        eggGroups:'a[href^="/pokedex-swsh/egg/"]',
+        //eggGroups[i].text;
+        abilities:'td.fooinfo>a[href^="/abilitydex/"]',
+        //abilities[i].href;
+        attacks:'td.fooinfo>a[href^="/attackdex-swsh/"]',
+        //attacks[i].href;
+        hasOtherForms:'.sprite-select'
+        //hasOtherForms.length > 0
     };
 
     public static fetchNames(): Promise<string[]> {
