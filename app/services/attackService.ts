@@ -26,8 +26,8 @@ export class AttackService {
         maxMovePower1: 'tr:contains(MaxMove Power)',
         maxMovePower2: 'td:nth-child(2)',
         // .text().replace('%', '')
-        critRate1:'tr:contains(Base Critical Hit Rate)',
-        critRate2:'td:nth-child(1)',
+        critRate1: 'tr:contains(Base Critical Hit Rate)',
+        critRate2: 'td:nth-child(1)',
         priority: 'tr:contains(Speed Priority)',
         priority2: 'td:nth-child(2)',
         target: 'tr:contains(Pokémon Hit in Battle)',

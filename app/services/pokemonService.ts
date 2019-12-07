@@ -7,39 +7,39 @@ export class PokemonService {
     public static url = 'https://www.serebii.net/pokedex-swsh/';
     public static selectors = {
         name: 'h1',
-        types:'.typeimg',
+        types: '.typeimg',
         //types.[i].alt;
-        gender:'tr:contains(Gender Ratio)',
+        gender: 'tr:contains(Gender Ratio)',
         male://gender.next().find();
-        'tr > td:contains(♂)',
+            'tr > td:contains(♂)',
         //male.next().text().replace('%', '');
         female://gender.next().find();
-        'tr > td:contains(♀)',
+            'tr > td:contains(♀)',
         //female.next().text().replace('%', '');
         genderLess://gender.next().find();
-        'td:contains(Genderless)',
+            'td:contains(Genderless)',
         //genderLess.next().text().replace('%', '');
-        heights:'main tr:contains(Height)',
+        heights: 'main tr:contains(Height)',
         heightP://heights.next().find();
-        'td:nth-child(2)',
+            'td:nth-child(2)',
         //heightP.text().replace(/\t/gi,"").split("\n")[0].replace('"','');
         heightM://heights.next().find();
-        'td:nth-child(2)',
+            'td:nth-child(2)',
         //heightM.text().replace(/\t/gi,"").split("\n")[1].replace('m','');
-        weights:'main tr:contains(Weight)',
+        weights: 'main tr:contains(Weight)',
         weightLbs://weights.next().find();
-        'td:contains(lbs)',
+            'td:contains(lbs)',
         //weightLbs.text().replace(/\t/gi,"").split("\n")[0].replace('lbs','');
         weightKg://weights.next().find();
-        'td:contains(lbs)',
+            'td:contains(lbs)',
         //weightKg.text().replace(/\t/gi,"").split("\n")[1].replace('kg','');
-        eggGroups:'a[href^="/pokedex-swsh/egg/"]',
+        eggGroups: 'a[href^="/pokedex-swsh/egg/"]',
         //eggGroups[i].text;
-        abilities:'td.fooinfo>a[href^="/abilitydex/"]',
+        abilities: 'td.fooinfo>a[href^="/abilitydex/"]',
         //abilities[i].href;
-        attacks:'td.fooinfo>a[href^="/attackdex-swsh/"]',
+        attacks: 'td.fooinfo>a[href^="/attackdex-swsh/"]',
         //attacks[i].href;
-        hasOtherForms:'.sprite-select'
+        hasOtherForms: '.sprite-select'
         //hasOtherForms.length > 0
     };
 
@@ -105,9 +105,9 @@ export class PokemonService {
             // Añadir selectores aquí
             name: $(PokemonService.selectors.name).text(),
             types: UtilService.toArray($(PokemonService.selectors.gender).next().find(PokemonService.selectors.types),
-                    function(this: CheerioStatic) {
-                        return ($(this).attr('alt') || '').replace("-type","");
-                    }),
+                function(this: CheerioStatic) {
+                    return ($(this).attr('alt') || '').replace("-type", "");
+                }),
             male: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.male).next().text(),
             female: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.female).next().text(),
             genderLess: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.genderLess).next().text(),
@@ -116,31 +116,31 @@ export class PokemonService {
             weightLbs: $(PokemonService.selectors.weights).next().find(PokemonService.selectors.weightLbs).html() || '',
             weightKg: $(PokemonService.selectors.weights).next().find(PokemonService.selectors.weightKg).html() || '',
             eggGroups: UtilService.toArray($(PokemonService.selectors.eggGroups),
-                    function(this: CheerioStatic) {
-                        return $(this).text();
-                    }),
+                function(this: CheerioStatic) {
+                    return $(this).text();
+                }),
             abilities: UtilService.toArray($(PokemonService.selectors.abilities),
-                    function(this: CheerioStatic) {
-                        return $(this).attr('href');
-                    }),
+                function(this: CheerioStatic) {
+                    return $(this).attr('href');
+                }),
             attacks: UtilService.toArray($(PokemonService.selectors.attacks),
-                    function(this: CheerioStatic) {
-                        return $(this).attr('href');
-                    }),
+                function(this: CheerioStatic) {
+                    return $(this).attr('href');
+                }),
             hasOtherForms: $(PokemonService.selectors.hasOtherForms).length > 0
         };
         return <Pokemon> {
             // Parsear datos aquí
-            number: Number(r.name.substr(2,r.name.indexOf(' ')-2)),
+            number: Number(r.name.substr(2, r.name.indexOf(' ') - 2)),
             name: UtilService.parseText(r.name.substr(r.name.indexOf(' ') + 1, r.name.length)),
             types: r.types,
-            male: Number(r.male.replace("%","")),
-            female: Number(r.female.replace("%","")),
+            male: Number(r.male.replace("%", "")),
+            female: Number(r.female.replace("%", "")),
             genderLess: r.genderLess != "",
-            heightP: Number(r.heightP.split("<br>")[0].replace('"','')),
-            heightM: Number(r.heightM.split("<br>")[1].replace('m','')),
-            weightLbs: Number(r.weightLbs.split("<br>")[0].replace('lbs','')),
-            weightKg: Number(r.weightKg.split("<br>")[1].replace('kg','')),
+            heightP: Number(r.heightP.split("<br>")[0].replace('"', '')),
+            heightM: Number(r.heightM.split("<br>")[1].replace('m', '')),
+            weightLbs: Number(r.weightLbs.split("<br>")[0].replace('lbs', '')),
+            weightKg: Number(r.weightKg.split("<br>")[1].replace('kg', '')),
             eggGroups: r.eggGroups,
             abilities: r.abilities,
             attacks: r.attacks,
