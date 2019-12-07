@@ -1,5 +1,7 @@
 import cheerio from "cheerio";
+import fs from 'fs';
 import fetch from "node-fetch";
+import path from 'path';
 
 export class UtilService {
     private static fetchOptions = {
@@ -20,5 +22,25 @@ export class UtilService {
         return name
             .toLowerCase()
             .replace(/ /g, '');
+    }
+
+    public static saveFile(name: string, json: any) {
+        let location = path.join(process.cwd(), name + '.json');
+        fs.writeFile(location, JSON.stringify(json), (err) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(location + ' guardado');
+            }
+        });
+    }
+
+    public static toArray(element: Cheerio, iterator: (cheerio: CheerioStatic) => any): any[] {
+        let array: any[] = [];
+        element
+            .each(function(this: CheerioStatic) {
+                array.push(iterator(this));
+            });
+        return array;
     }
 }
