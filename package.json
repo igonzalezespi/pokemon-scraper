@@ -23,12 +23,14 @@
     "async": "3.1.0",
     "cheerio": "1.0.0-rc.3",
     "node-fetch": "2.6.0",
+    "random-number": "0.0.9",
     "yargs": "15.0.2"
   },
   "devDependencies": {
     "@types/async": "3.0.3",
     "@types/cheerio": "0.22.15",
     "@types/node-fetch": "2.5.4",
+    "@types/random-number": "0.0.0",
     "@types/tiny-async-pool": "1.0.0",
     "@types/yargs": "13.0.3",
     "tslint": "5.20.1",

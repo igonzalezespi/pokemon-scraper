@@ -1,4 +1,6 @@
 import async from "async";
+import randomNumber from "random-number";
+import {argv} from 'yargs';
 import {UtilService} from "./utilService";
 
 export class PokemonService {
@@ -22,11 +24,25 @@ export class PokemonService {
                             let name = $text
                                 .substr($text.indexOf(' ') + 1)
                                 .toLowerCase()
-                                .replace(' ', '');
+                                .replace(/ /g, '');
 
                             pokes.push(name);
                         }
                     });
+                /* test */
+                const testPokemon = Number(argv.pokemon); // Número de pokemon a testear
+                if (testPokemon) { // Para no traernos la lista entera
+                    let _pokes = [];
+                    for (let i = 0; i < testPokemon; i++) {
+                        let rand = randomNumber({min: 1, max: pokes.length, integer: true});
+                        _pokes.push(
+                            pokes[rand]
+                        );
+                        pokes.splice(rand, 1); // Para no repetirlos
+                    }
+                    return _pokes;
+                }
+                /* /test */
                 return pokes;
             });
     }
