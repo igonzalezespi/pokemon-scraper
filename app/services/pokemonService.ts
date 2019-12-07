@@ -19,12 +19,12 @@ export class PokemonService {
         genderLess://gender.next().find();
         'td:contains(Genderless)',
         //genderLess.next().text().replace('%', '');
-        heights:'tr:contains(Height)',
+        heights:'main tr:contains(Height)',
         heightP://heights.next().find();
-        'td:contains(")',
+        'td:nth-child(2)',
         //heightP.text().replace(/\t/gi,"").split("\n")[0].replace('"','');
         heightM://heights.next().find();
-        'td:contains(")',
+        'td:nth-child(2)',
         //heightM.text().replace(/\t/gi,"").split("\n")[1].replace('m','');
         weights:'main tr:contains(Weight)',
         weightLbs://weights.next().find();
@@ -100,13 +100,51 @@ export class PokemonService {
     }
 
     public static extractInfo(html: string, $: CheerioStatic): Pokemon {
+
         let r = {
             // Añadir selectores aquí
-            name: $(PokemonService.selectors.name).text()
+            name: $(PokemonService.selectors.name).text(),
+            types: UtilService.toArray($(PokemonService.selectors.gender).next().find(PokemonService.selectors.types),
+                    function(this: CheerioStatic) {
+                        return ($(this).attr('alt') || '').replace("-type","");
+                    }),
+            male: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.male).next().text(),
+            female: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.female).next().text(),
+            genderLess: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.genderLess).next().text(),
+            heightP: $(PokemonService.selectors.heights).next().find(PokemonService.selectors.heightP).html() || '',
+            heightM: $(PokemonService.selectors.heights).next().find(PokemonService.selectors.heightM).html() || '',
+            weightLbs: $(PokemonService.selectors.weights).next().find(PokemonService.selectors.weightLbs).html() || '',
+            weightKg: $(PokemonService.selectors.weights).next().find(PokemonService.selectors.weightKg).html() || '',
+            eggGroups: UtilService.toArray($(PokemonService.selectors.eggGroups),
+                    function(this: CheerioStatic) {
+                        return $(this).text();
+                    }),
+            abilities: UtilService.toArray($(PokemonService.selectors.abilities),
+                    function(this: CheerioStatic) {
+                        return $(this).attr('href');
+                    }),
+            attacks: UtilService.toArray($(PokemonService.selectors.attacks),
+                    function(this: CheerioStatic) {
+                        return $(this).attr('href');
+                    }),
+            hasOtherForms: $(PokemonService.selectors.hasOtherForms).length > 0
         };
         return <Pokemon> {
             // Parsear datos aquí
+            number: Number(r.name.substr(2,r.name.indexOf(' ')-2)),
             name: UtilService.parseText(r.name.substr(r.name.indexOf(' ') + 1, r.name.length)),
+            types: r.types,
+            male: Number(r.male.replace("%","")),
+            female: Number(r.female.replace("%","")),
+            genderLess: r.genderLess != "",
+            heightP: Number(r.heightP.split("<br>")[0].replace('"','')),
+            heightM: Number(r.heightM.split("<br>")[1].replace('m','')),
+            weightLbs: Number(r.weightLbs.split("<br>")[0].replace('lbs','')),
+            weightKg: Number(r.weightKg.split("<br>")[1].replace('kg','')),
+            eggGroups: r.eggGroups,
+            abilities: r.abilities,
+            attacks: r.attacks,
+            hasOtherForms: r.hasOtherForms
         };
     }
 }
