@@ -104,10 +104,11 @@ export class PokemonService {
         let r = {
             // Añadir selectores aquí
             name: $(PokemonService.selectors.name).text(),
-            types: UtilService.toArray($(PokemonService.selectors.gender).next().find(PokemonService.selectors.types),
-                function(this: CheerioStatic) {
-                    return ($(this).attr('alt') || '').replace("-type", "");
-                }),
+            types: UtilService.toArray(
+                $(PokemonService.selectors.gender).next().find(PokemonService.selectors.types),
+                (el) =>
+                    ($(el).attr('alt') || '').replace("-type", "").toLowerCase()
+            ),
             male: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.male).next().text(),
             female: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.female).next().text(),
             genderLess: $(PokemonService.selectors.gender).next().find(PokemonService.selectors.genderLess).next().text(),
@@ -115,18 +116,18 @@ export class PokemonService {
             heightM: $(PokemonService.selectors.heights).next().find(PokemonService.selectors.heightM).html() || '',
             weightLbs: $(PokemonService.selectors.weights).next().find(PokemonService.selectors.weightLbs).html() || '',
             weightKg: $(PokemonService.selectors.weights).next().find(PokemonService.selectors.weightKg).html() || '',
-            eggGroups: UtilService.toArray($(PokemonService.selectors.eggGroups),
-                function(this: CheerioStatic) {
-                    return $(this).text();
-                }),
-            abilities: UtilService.toArray($(PokemonService.selectors.abilities),
-                function(this: CheerioStatic) {
-                    return $(this).attr('href');
-                }),
-            attacks: UtilService.toArray($(PokemonService.selectors.attacks),
-                function(this: CheerioStatic) {
-                    return $(this).attr('href');
-                }),
+            eggGroups: UtilService.toArray(
+                $(PokemonService.selectors.eggGroups),
+                (el) => $(el).text().toLowerCase()
+            ),
+            abilities: UtilService.toArray(
+                $(PokemonService.selectors.abilities),
+                (el) => $(el).attr('href')
+            ),
+            attacks: UtilService.toArray(
+                $(PokemonService.selectors.attacks),
+                (el) => $(el).attr('href')
+            ),
             hasOtherForms: $(PokemonService.selectors.hasOtherForms).length > 0
         };
         return <Pokemon> {

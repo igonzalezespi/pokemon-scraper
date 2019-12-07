@@ -35,11 +35,12 @@ export class UtilService {
         });
     }
 
-    public static toArray(element: Cheerio, iterator: (cheerio: CheerioStatic) => any): any[] {
+    public static toArray(element: Cheerio, iterator: (cheerio: CheerioElement) => any): any[] {
         let array: any[] = [];
         element
-            .each(function(this: CheerioStatic) {
-                array.push(iterator(this));
+            .toArray()
+            .forEach((element: CheerioElement) => {
+                array.push(iterator(element));
             });
         return array;
     }
