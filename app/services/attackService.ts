@@ -2,40 +2,54 @@ export class AttackService {
     public static url = 'https://www.serebii.net/attackdex-swsh/';
     public static selectors = {
         name: 'h1',
-        // .attr('href').replace('/attackdex-swsh/', '').replace('.shtml', '')
-        type: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(2) td:nth-child(2) > a',
-        // .attr('href').replace('/attackdex-swsh/', '').replace('.shtml', '')
-        category: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(2) td:nth-child(3) > a',
-        pp: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(4) td:nth-child(1)',
-        basepower: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(4) td:nth-child(2)',
-        precision: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(4) td:nth-child(3)',
-        effect: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(6)',
-        secondEffect: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(8) td:first-child',
+        type1: 'tr:contains(Battle Type)',
+        // type1.next().find('...').attr('href').replace('/attackdex-swsh/', '').replace('.shtml', '')
+        type2: 'td:nth-child(2) > a',
+        category1: 'tr:contains(Category)',
+        category2: 'td:nth-child(3) > a',
+        // .text()
+        powerPoints1: 'tr:contains(Power Points)',
+        powerPoints2: 'td:nth-child(1)',
+        basePower1: 'tr:contains(Base Power)',
+        basePower2: 'td:nth-child(2)',
+        accuracy1: 'tr:contains(Accuracy)',
+        accuracy2: 'td:nth-child(3)',
+        battleEffect1: 'tr:contains(Battle Effect)',
+        battleEffect2: 'td:nth-child(1)',
+        secondaryEffect1: 'tr:contains(Secondary Effect)',
+        secondaryEffect2: 'td:nth-child(1)',
+        // .text().replace('%', '').replace('--', '100')
+        effectRate1: 'tr:contains(Effect Rate)',
+        effectRate2: 'td:nth-child(2)',
+        maxMove1: 'tr:contains(Corresponding Max Move)',
+        maxMove2: 'td:nth-child(1)',
+        maxMovePower1: 'tr:contains(MaxMove Power)',
+        maxMovePower2: 'td:nth-child(2)',
         // .text().replace('%', '')
-        probEffect: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(8) td:nth-child(2)',
-        maxMove: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(10) td:nth-child(1)',
-        maxMovePower: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(10) td:nth-child(2)',
-        // .text().replace('%', '')
-        probCrit:'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(12) td:nth-child(1)',
-        priority: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(12) td:nth-child(2)',
-        target: 'main div:nth-child(3) table.dextable:nth-of-type(3) > tbody > tr:nth-child(12) td:nth-child(3)',
+        critRate1:'tr:contains(Base Critical Hit Rate)',
+        critRate2:'td:nth-child(1)',
+        priority: 'tr:contains(Speed Priority)',
+        priority2: 'td:nth-child(2)',
+        target: 'tr:contains(Pokémon Hit in Battle)',
+        target2: 'td:nth-child(3)',
         // .text() === 'Yes'
-        contact: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(2)',
-        // .text() === 'Yes'
-        sound: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(2) td:nth-child(1)',
-        // .text() === 'Yes'
-        punch: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(2) td:nth-child(2)',
-        // .text() === 'Yes'
-        snatchable: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(2) td:nth-child(3)',
-        // .text() === 'Yes'
-        gravity: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(2) td:nth-child(4)',
-        // .text() === 'Yes'
-        defrost: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(4) td:nth-child(1)',
-        // .text() === 'Yes'
-        reflect: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(4) td:nth-child(3)',
-        // .text() === 'Yes'
-        block: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(4) td:nth-child(4)',
-        // .text() === 'Yes'
-        copy: 'main div:nth-child(3) table.dextable:nth-of-type(4) > tbody > tr:nth-child(4) td:nth-child(5)',
+        contact1: 'tr:contains(Physical Contact)',
+        contact2: 'td:nth-child(1)',
+        sound1: 'tr:contains(Sound-Type)',
+        sound2: 'td:nth-child(2)',
+        punch1: 'tr:contains(Punch Move)',
+        punch2: 'td:nth-child(3)',
+        snatchable1: 'tr:contains(Snatchable)',
+        snatchable2: 'td:nth-child(4)',
+        gravity1: 'tr:contains(Affected by Gravity)',
+        gravity2: 'td:nth-child(5)',
+        defrost1: 'tr:contains(Defrosts When Used)',
+        defrost2: 'td:nth-child(1)',
+        reflect1: 'tr:contains(Reflected By Magic Coat/Magic Bounce)',
+        reflect2: 'td:nth-child(3)',
+        block1: 'tr:contains(Blocked by Protect/Detect)',
+        block2: 'td:nth-child(4)',
+        copy1: 'tr:contains(Copyable by Mirror Move)',
+        copy2: 'td:nth-child(5)',
     };
 }
