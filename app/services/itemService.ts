@@ -31,8 +31,8 @@ export class ItemService {
                         }
                     });
                 /* test */
-                const test = Number(argv.item); // Número de pokemon a testear
-                if (test) { // Para no traernos la lista entera
+                const test: any = argv.item; // Número de pokemon a testear
+                if (typeof test === 'number') { // Para no traernos la lista entera
                     let _items = [];
                     for (let i = 0; i < test; i++) {
                         let rand = randomNumber({min: 1, max: items.length, integer: true});
@@ -40,6 +40,8 @@ export class ItemService {
                         items.splice(rand, 1); // Para no repetirlos
                     }
                     return _items;
+                } else if (typeof test === 'string') {
+                    return test.split(',').map(i => `/itemdex/${i}.shtml`);
                 }
                 /* /test */
                 return items;
@@ -84,11 +86,11 @@ export class ItemService {
         }
         return <Item> {
             // Parsear datos aquí
-            name: r.name,
-            description: r.description,
-            effect: r.effect,
+            name: r.name.trim(),
+            description: r.description.trim(),
+            effect: r.effect.trim(),
             flingDamage: r.fling[0] ? Number(r.fling[0]) : undefined,
-            flingEffect: r.fling[1]
+            flingEffect: (r.fling[1] || '').trim() || undefined
         };
     }
 }

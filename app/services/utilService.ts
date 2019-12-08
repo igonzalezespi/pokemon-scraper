@@ -18,14 +18,18 @@ export class UtilService {
             });
     }
 
-    public static parseText(name: string): string {
-        return name
-            .toLowerCase()
-            .replace(/ /g, '');
+    public static removeFile(name: string) {
+        let location = path.join(process.cwd(), 'data', name + '.json');
+        return new Promise((resolve) => {
+            fs.unlink(location, () => {
+                console.log(location + ' borrado');
+                resolve();
+            });
+        });
     }
 
     public static saveFile(name: string, json: any) {
-        let location = path.join(process.cwd(), name + '.json');
+        let location = path.join(process.cwd(), 'data', name + '.json');
         fs.writeFile(location, JSON.stringify(json), (err) => {
             if (err) {
                 console.error(err);

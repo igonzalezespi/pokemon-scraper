@@ -66,4 +66,5 @@ typings/
 /package-lock.json
 
 *.js
-*.json
+data/*.json
+!data/.gitkeep
