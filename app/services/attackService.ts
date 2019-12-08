@@ -81,10 +81,10 @@ export class AttackService {
             });
         }
         /* test */
-        const testAttack = Number(argv.attack); // Número de ataques a testear
-        if (testAttack) { // Para no traernos la lista entera
+        const test = Number(argv.attack); // Número de ataques a testear
+        if (test) { // Para no traernos la lista entera
             let _attacks: AttackMap[] = [];
-            for (let i = 0; i < testAttack; i++) {
+            for (let i = 0; i < test; i++) {
                 let rand = randomNumber({min: 1, max: attackArray.length, integer: true});
                 _attacks.push(
                     attackArray[rand]
@@ -93,8 +93,6 @@ export class AttackService {
             }
             attackArray = _attacks;
         }
-        console.log('attackArray');
-        console.log(attackArray);
         /* /test */
         return Promise.resolve(
             async.eachSeries(

@@ -1,6 +1,7 @@
 import async from "async";
 import randomNumber from "random-number";
 import {argv} from 'yargs';
+import {AbilityService} from "./abilityService";
 import {AttackService} from "./attackService";
 import {UtilService} from "./utilService";
 
@@ -66,6 +67,7 @@ export class PokemonService {
             .then((pokemon) => {
                 // Aprovechamos para ir cargando los ataques y asignándoles los pokemon
                 AttackService.addNames(pokemon.attacks, pokemon.name);
+                AbilityService.addNames(pokemon.abilities, pokemon.name);
                 return pokemon;
             });
     }
